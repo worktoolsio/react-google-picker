@@ -97,8 +97,12 @@ var GoogleChooser = function (_React$Component) {
         return null;
       }
 
-      var token = window.gapi.auth.getToken();
-      var oauthToken = this.props.oauthToken || token && token.access_token;
+      var oauthToken = this.props.oauthToken;
+
+      if (!oauthToken) {
+        var token = window.gapi.auth.getToken();
+        oauthToken = token && token.access_token;
+      }
 
       if (oauthToken) {
         this.createPicker(oauthToken);
@@ -142,6 +146,10 @@ var GoogleChooser = function (_React$Component) {
         picker.setOrigin(this.props.origin);
       }
 
+      if (this.props.appId) {
+        picker.setAppId(this.props.appId);
+      }
+
       if (this.props.navHidden) {
         picker.enableFeature(window.google.picker.Feature.NAV_HIDDEN);
       }
@@ -175,6 +183,7 @@ GoogleChooser.propTypes = {
   clientId: _propTypes2.default.string.isRequired,
   developerKey: _propTypes2.default.string,
   oauthToken: _propTypes2.default.string,
+  appId: _propTypes2.default.string,
   scope: _propTypes2.default.array,
   viewId: _propTypes2.default.string,
   authImmediate: _propTypes2.default.bool,

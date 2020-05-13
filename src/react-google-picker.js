@@ -13,6 +13,7 @@ export default class GoogleChooser extends React.Component {
         clientId: PropTypes.string.isRequired,
         developerKey: PropTypes.string,
         oauthToken: PropTypes.string,
+        appId: PropTypes.string,
         scope: PropTypes.array,
         viewId: PropTypes.string,
         authImmediate: PropTypes.bool,
@@ -141,6 +142,10 @@ export default class GoogleChooser extends React.Component {
 
     if (this.props.origin) {
       picker.setOrigin(this.props.origin);
+    }
+
+    if (this.props.appId) {
+      picker.setAppId(this.props.appId)
     }
 
     if (this.props.navHidden) {
